@@ -144,6 +144,32 @@
   padding: 20px;
   margin-top: 30px;
   border-radius: 10px;
+  background-color: #f3f4f6;
+}
+
+.activity-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.activity-item:last-child {
+  border-bottom: none;
+}
+
+.activity-user {
+  font-weight: 600;
+  color: #2563eb;
+}
+
+.activity-action {
+  color: #374151;
+  margin-top: 2px;
+}
+
+.activity-date {
+  color: #6b7280;
+  font-size: 12px;
+  margin-top: 2px;
 }
 
 /* Responsive */

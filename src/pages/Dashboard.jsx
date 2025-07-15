@@ -1,13 +1,13 @@
-import React from 'react';
-import { 
-  Box, 
-  Grid, 
-  Typography, 
-  Paper, 
+import React from "react";
+import {
+  Box,
+  Grid,
+  Typography,
+  Paper,
   useTheme,
   Select,
-  MenuItem
-} from '@mui/material';
+  MenuItem,
+} from "@mui/material";
 import {
   Inventory as InventoryIcon,
   LocalShipping as SuppliersIcon,
@@ -15,10 +15,10 @@ import {
   People as UsersIcon,
   BarChart as StatsIcon,
   TrendingUp as TrendingIcon,
-  Warning as AlertIcon
-} from '@mui/icons-material';
-import './Dashboard.css';
-import StockChart from '../components/StockChart';
+  Warning as AlertIcon,
+} from "@mui/icons-material";
+import "./Dashboard.css";
+import StockChart from "../components/StockChart";
 
 // Fonctionnalités clés de ce dashboard :
 // Vue d'ensemble avec KPI :
@@ -59,14 +59,18 @@ const StatCard = ({ icon, title, value, change }) => {
   return (
     <Paper elevation={3} className="stat-card">
       <Box className="stat-icon-container">
-        {React.cloneElement(icon, { className: 'stat-icon' })}
+        {React.cloneElement(icon, { className: "stat-icon" })}
       </Box>
-      <Typography variant="h6" className="stat-title">{title}</Typography>
-      <Typography variant="h4" className="stat-value">{value}</Typography>
-      <Box className={`stat-change ${isPositive ? 'positive' : 'negative'}`}>
+      <Typography variant="h6" className="stat-title">
+        {title}
+      </Typography>
+      <Typography variant="h4" className="stat-value">
+        {value}
+      </Typography>
+      <Box className={`stat-change ${isPositive ? "positive" : "negative"}`}>
         <TrendingIcon fontSize="small" />
         <Typography variant="body2">
-          {change}% {isPositive ? '↑' : '↓'} vs mois dernier
+          {change}% {isPositive ? "↑" : "↓"} vs mois dernier
         </Typography>
       </Box>
     </Paper>
@@ -94,13 +98,31 @@ function Dashboard() {
     { icon: <InventoryIcon />, title: "Produits", value: 245, change: 12 },
     { icon: <SuppliersIcon />, title: "Fournisseurs", value: 32, change: 5 },
     { icon: <CategoriesIcon />, title: "Catégories", value: 15, change: 0 },
-    { icon: <UsersIcon />, title: "Utilisateurs", value: 8, change: 14 }
+    { icon: <UsersIcon />, title: "Utilisateurs", value: 8, change: 14 },
   ];
 
   const alertsData = [
     { product: "Câble HDMI 2m", remaining: 3, threshold: 10 },
     { product: "Souris sans fil", remaining: 5, threshold: 15 },
-    { product: "Clavier mécanique", remaining: 2, threshold: 8 }
+    { product: "Clavier mécanique", remaining: 2, threshold: 8 },
+  ];
+
+  const activitiesData = [
+    {
+      user: "Adam",
+      action: "Zad produit: Souris sans fil",
+      date: "15/07/2025 10:30",
+    },
+    {
+      user: "Sara",
+      action: "Na9sat stock: Câble HDMI 2m",
+      date: "15/07/2025 09:50",
+    },
+    {
+      user: "Yassine",
+      action: "Tbadlat catégorie: Clavier mécanique",
+      date: "14/07/2025 17:20",
+    },
   ];
 
   const [period, setPeriod] = React.useState(30);
@@ -114,7 +136,7 @@ function Dashboard() {
       <Typography variant="h4" className="dashboard-title">
         Tableau de Bord
       </Typography>
-      
+
       {/* Section Statistiques */}
       <Grid container spacing={3} className="stats-grid">
         {statsData.map((stat, index) => (
@@ -130,7 +152,9 @@ function Dashboard() {
         <Grid item xs={12} md={8}>
           <Paper elevation={3} className="chart-container">
             <Box className="chart-header">
-              <Typography variant="h6">Mouvements de stock ({period} jours)</Typography>
+              <Typography variant="h6">
+                Mouvements de stock ({period} jours)
+              </Typography>
               <StatsIcon className="chart-icon" />
               <Select
                 value={period}
@@ -144,7 +168,7 @@ function Dashboard() {
               </Select>
             </Box>
             <Box className="chart-placeholder">
-               <StockChart period={period} />
+              <StockChart period={period} />
               <Typography variant="body1" className="chart-message">
                 Graphique des entrées/sorties de stock
               </Typography>
@@ -171,7 +195,17 @@ function Dashboard() {
       {/* Dernières Activités */}
       <Paper elevation={3} className="activity-container">
         <Typography variant="h6">Dernières Activités</Typography>
-        {/* Liste des activités récentes */}
+        <Box>
+          {activitiesData.map((activity, index) => (
+            <Box key={index} className="activity-item">
+              <Typography className="activity-user">{activity.user}</Typography>
+              <Typography className="activity-action">
+                {activity.action}
+              </Typography>
+              <Typography className="activity-date">{activity.date}</Typography>
+            </Box>
+          ))}
+        </Box>
       </Paper>
     </Box>
   );
