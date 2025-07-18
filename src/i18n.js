@@ -43,6 +43,7 @@ const resources = {
       "projects.delete": "Supprimer",
       "users.search": "Recherche",
       "vs Last-Month": "vs mois dernier",
+      "suppliers.title": "Gestion des Fournisseurs",
     },
   },
   en: {
@@ -85,7 +86,8 @@ const resources = {
       "projects.action": "Action",
       "projects.delete": "Delete",
       "users.search": "Search",
-      "vsLastMonth": "vs last month",
+      vsLastMonth: "vs last month",
+      "suppliers.title": "Suppliers Management",
     },
   },
 };

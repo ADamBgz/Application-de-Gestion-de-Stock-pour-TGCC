@@ -45,8 +45,8 @@ function Suppliers({ darkMode }) {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h5" mb={2}>
-        Gestion des Fournisseurs
+      <Typography variant="h5" mb={2} sx={{ color: "#23232a" }}>
+        {t("suppliers.title")}
       </Typography>
       <Paper sx={{ p: 2, mb: 3 }}>
         <Typography variant="subtitle1" mb={1}>

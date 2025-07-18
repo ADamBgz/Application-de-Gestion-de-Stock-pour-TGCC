@@ -49,7 +49,7 @@ function Project({ darkMode }) {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h5" mb={2}>
+      <Typography variant="h5" mb={2} >
         {t("projects.title")}
       </Typography>
       <Paper sx={{ p: 2, mb: 3 }}>
