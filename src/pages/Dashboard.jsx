@@ -19,6 +19,7 @@ import {
 } from "@mui/icons-material";
 import "./Dashboard.css";
 import StockChart from "../components/StockChart";
+import { useTranslation } from "react-i18next";
 
 // Fonctionnalités clés de ce dashboard :
 // Vue d'ensemble avec KPI :
@@ -61,10 +62,18 @@ const StatCard = ({ icon, title, value, change }) => {
       <Box className="stat-icon-container">
         {React.cloneElement(icon, { className: "stat-icon" })}
       </Box>
-      <Typography variant="h6" className="stat-title">
+      <Typography
+        variant="h6"
+        className="stat-title"
+        sx={{ color: "text.primary" }}
+      >
         {title}
       </Typography>
-      <Typography variant="h4" className="stat-value">
+      <Typography
+        variant="h4"
+        className="stat-value"
+        sx={{ color: "text.primary" }}
+      >
         {value}
       </Typography>
       <Box className={`stat-change ${isPositive ? "positive" : "negative"}`}>
@@ -93,12 +102,14 @@ const StockAlert = ({ product, remaining, threshold }) => {
 };
 
 function Dashboard() {
+  const { t } = useTranslation();
+
   // Données simulées - À remplacer par vos données réelles
   const statsData = [
-    { icon: <InventoryIcon />, title: "Produits", value: 245, change: 12 },
-    { icon: <SuppliersIcon />, title: "Fournisseurs", value: 32, change: 5 },
-    { icon: <CategoriesIcon />, title: "Catégories", value: 15, change: 0 },
-    { icon: <UsersIcon />, title: "Utilisateurs", value: 8, change: 14 },
+    { icon: <InventoryIcon />, title: t("Produits"), value: 245, change: 12 },
+    { icon: <SuppliersIcon />, title: t("Fournisseurs"), value: 32, change: 5 },
+    { icon: <CategoriesIcon />, title: t("Catégories"), value: 15, change: 0 },
+    { icon: <UsersIcon />, title: t("Utilisateurs"), value: 8, change: 14 },
   ];
 
   const alertsData = [
@@ -134,7 +145,7 @@ function Dashboard() {
   return (
     <Box className="dashboard-container">
       <Typography variant="h4" className="dashboard-title">
-        Tableau de Bord
+        {t("Dashboard")}
       </Typography>
 
       {/* Section Statistiques */}
@@ -180,7 +191,7 @@ function Dashboard() {
         <Grid item xs={12} md={4}>
           <Paper elevation={3} className="alerts-container">
             <Box className="alerts-header">
-              <Typography variant="h6">Alertes Stock Faible</Typography>
+              <Typography variant="h6">{t("Alertes Stock Faible")}</Typography>
               <AlertIcon className="alerts-icon" />
             </Box>
             <Box className="alerts-list">
@@ -194,15 +205,28 @@ function Dashboard() {
 
       {/* Dernières Activités */}
       <Paper elevation={3} className="activity-container">
-        <Typography variant="h6">Dernières Activités</Typography>
+        <Typography variant="h6">{t("Dernières Activités")}</Typography>
         <Box>
           {activitiesData.map((activity, index) => (
             <Box key={index} className="activity-item">
-              <Typography className="activity-user">{activity.user}</Typography>
-              <Typography className="activity-action">
+              <Typography
+                className="activity-user"
+                sx={{ color: "text.primary" }}
+              >
+                {activity.user}
+              </Typography>
+              <Typography
+                className="activity-action"
+                sx={{ color: "text.primary" }}
+              >
                 {activity.action}
               </Typography>
-              <Typography className="activity-date">{activity.date}</Typography>
+              <Typography
+                className="activity-date"
+                sx={{ color: "text.secondary" }}
+              >
+                {activity.date}
+              </Typography>
             </Box>
           ))}
         </Box>

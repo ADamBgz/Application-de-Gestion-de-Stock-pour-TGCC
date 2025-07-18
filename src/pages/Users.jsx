@@ -12,43 +12,44 @@ import {
   TableBody,
 } from "@mui/material";
 
-function Suppliers() {
-  const [suppliers, setSuppliers] = React.useState([
-    { id: 1, nom: "TGCC", tel: "0612345678", email: "contact@tgcc.ma" },
-    { id: 2, nom: "SOMAGEC", tel: "0623456789", email: "info@somagec.ma" },
+function Users() {
+  const [users, setUsers] = React.useState([
+    { id: 1, nom: "Adam", email: "adam@gmail.com", role: "Admin" },
+    { id: 2, nom: "Sara", email: "sara@gmail.com", role: "User" },
   ]);
   const [search, setSearch] = React.useState("");
-  const [form, setForm] = React.useState({ nom: "", tel: "", email: "" });
+  const [form, setForm] = React.useState({ nom: "", email: "", role: "" });
 
-  const filteredSuppliers = suppliers.filter(
-    (s) =>
-      s.nom.toLowerCase().includes(search.toLowerCase()) ||
-      s.email.toLowerCase().includes(search.toLowerCase())
+  const filteredUsers = users.filter(
+    (u) =>
+      u.nom.toLowerCase().includes(search.toLowerCase()) ||
+      u.email.toLowerCase().includes(search.toLowerCase()) ||
+      u.role.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleAdd = () => {
-    if (form.nom && form.tel && form.email) {
-      setSuppliers([
-        ...suppliers,
+    if (form.nom && form.email && form.role) {
+      setUsers([
+        ...users,
         {
-          id: suppliers.length + 1,
+          id: users.length + 1,
           nom: form.nom,
-          tel: form.tel,
           email: form.email,
+          role: form.role,
         },
       ]);
-      setForm({ nom: "", tel: "", email: "" });
+      setForm({ nom: "", email: "", role: "" });
     }
   };
 
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h5" mb={2}>
-        Gestion des Fournisseurs
+        Gestion des Utilisateurs
       </Typography>
       <Paper sx={{ p: 2, mb: 3 }}>
         <Typography variant="subtitle1" mb={1}>
-          Ajouter Fournisseur
+          Ajouter Utilisateur
         </Typography>
         <Box sx={{ display: "flex", gap: 2 }}>
           <TextField
@@ -57,14 +58,14 @@ function Suppliers() {
             onChange={(e) => setForm({ ...form, nom: e.target.value })}
           />
           <TextField
-            label="Téléphone"
-            value={form.tel}
-            onChange={(e) => setForm({ ...form, tel: e.target.value })}
-          />
-          <TextField
             label="Email"
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
+          />
+          <TextField
+            label="Rôle"
+            value={form.role}
+            onChange={(e) => setForm({ ...form, role: e.target.value })}
           />
           <Button variant="contained" onClick={handleAdd}>
             Ajouter
@@ -82,24 +83,24 @@ function Suppliers() {
           <TableHead>
             <TableRow>
               <TableCell>Nom</TableCell>
-              <TableCell>Téléphone</TableCell>
               <TableCell>Email</TableCell>
+              <TableCell>Rôle</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredSuppliers.map((s) => (
-              <TableRow key={s.id}>
-                <TableCell>{s.nom}</TableCell>
-                <TableCell>{s.tel}</TableCell>
-                <TableCell>{s.email}</TableCell>
+            {filteredUsers.map((u) => (
+              <TableRow key={u.id}>
+                <TableCell>{u.nom}</TableCell>
+                <TableCell>{u.email}</TableCell>
+                <TableCell>{u.role}</TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
                     color="error"
                     size="small"
                     onClick={() => {
-                      setSuppliers(suppliers.filter((sup) => sup.id !== s.id));
+                      setUsers(users.filter((user) => user.id !== u.id));
                     }}
                   >
                     Supprimer
@@ -114,4 +115,4 @@ function Suppliers() {
   );
 }
 
-export default Suppliers;
+export default Users;

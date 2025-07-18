@@ -1,27 +1,46 @@
-import React from 'react';
-import './Side.css';
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import Inventory2Icon from '@mui/icons-material/Inventory2';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import CategoryIcon from '@mui/icons-material/Category';
-import PeopleIcon from '@mui/icons-material/People';
-import BarChartIcon from '@mui/icons-material/BarChart';
-import { Link } from 'react-router-dom';
-import { Avatar, Menu, MenuItem, IconButton } from '@mui/material';
-import LogoutIcon from '@mui/icons-material/Logout';
-import SettingsIcon from '@mui/icons-material/Settings';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import React from "react";
+import "./Side.css";
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+import CategoryIcon from "@mui/icons-material/Category";
+import PeopleIcon from "@mui/icons-material/People";
+import BarChartIcon from "@mui/icons-material/BarChart";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import { Link, useNavigate } from "react-router-dom";
+import { Avatar, Menu, MenuItem, IconButton } from "@mui/material";
+import LogoutIcon from "@mui/icons-material/Logout";
+import SettingsIcon from "@mui/icons-material/Settings";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 function Side() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
+  const navigate = useNavigate();
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleProfile = () => {
+    navigate("/profile");
+    handleClose();
+  };
+
+  const handleSettings = () => {
+    navigate("/settings");
+    handleClose();
+  };
+
+  const handleLogout = () => {
+    // ex: tms7 token mn localStorage w tredirect l-login
+    // localStorage.removeItem("token");
+    navigate("/login");
+    handleClose();
   };
 
   return (
@@ -54,11 +73,12 @@ function Side() {
             </Link>
           </li>
           <li>
-            <Link to="/categories">
-              <CategoryIcon className="icon" />
-              <span>Categories</span>
+            <Link to="/projects">
+              <BarChartIcon className="icon" />
+              <span>Projects</span>
             </Link>
           </li>
+
           <li>
             <Link to="/users">
               <PeopleIcon className="icon" />
@@ -67,7 +87,7 @@ function Side() {
           </li>
           <li>
             <Link to="/reports">
-              <BarChartIcon className="icon" />
+              <AssessmentIcon className="icon" />
               <span>Reports</span>
             </Link>
           </li>
@@ -77,8 +97,8 @@ function Side() {
       {/* Section Avatar */}
       <div className="avatar-section">
         <div className="avatar-container" onClick={handleClick}>
-          <Avatar 
-            alt="User Name" 
+          <Avatar
+            alt="User Name"
             src="/path/to/avatar.jpg" // Remplacez par le chemin de votre image ou laissez vide pour une icône par défaut
             sx={{ width: 36, height: 36 }}
           />
@@ -95,43 +115,43 @@ function Side() {
           PaperProps={{
             elevation: 0,
             sx: {
-              backgroundColor: '#1f2937',
-              color: 'white',
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              backgroundColor: "#1f2937",
+              color: "white",
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
               mt: 1.5,
-              '& .MuiAvatar-root': {
+              "& .MuiAvatar-root": {
                 width: 32,
                 height: 32,
                 ml: -0.5,
                 mr: 1,
               },
-              '&:before': {
+              "&:before": {
                 content: '""',
-                display: 'block',
-                position: 'absolute',
+                display: "block",
+                position: "absolute",
                 top: 0,
                 right: 14,
                 width: 10,
                 height: 10,
-                bgcolor: '#1f2937',
-                transform: 'translateY(-50%) rotate(45deg)',
+                bgcolor: "#1f2937",
+                transform: "translateY(-50%) rotate(45deg)",
                 zIndex: 0,
               },
             },
           }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+          transformOrigin={{ horizontal: "right", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
         >
-          <MenuItem onClick={handleClose} className="avatar-menu-item">
+          <MenuItem onClick={handleProfile} className="avatar-menu-item">
             <AccountCircleIcon sx={{ mr: 1, fontSize: 20 }} />
             Profile
           </MenuItem>
-          <MenuItem onClick={handleClose} className="avatar-menu-item">
+          <MenuItem onClick={handleSettings} className="avatar-menu-item">
             <SettingsIcon sx={{ mr: 1, fontSize: 20 }} />
             Settings
           </MenuItem>
-          <MenuItem onClick={handleClose} className="avatar-menu-item">
+          <MenuItem onClick={handleLogout} className="avatar-menu-item">
             <LogoutIcon sx={{ mr: 1, fontSize: 20 }} />
             Logout
           </MenuItem>

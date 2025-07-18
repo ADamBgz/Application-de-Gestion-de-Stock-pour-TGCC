@@ -12,43 +12,47 @@ import {
   TableBody,
 } from "@mui/material";
 
-function Suppliers() {
-  const [suppliers, setSuppliers] = React.useState([
-    { id: 1, nom: "TGCC", tel: "0612345678", email: "contact@tgcc.ma" },
-    { id: 2, nom: "SOMAGEC", tel: "0623456789", email: "info@somagec.ma" },
+function Project() {
+  const [projects, setProjects] = React.useState([
+    { id: 1, nom: "Projet A", client: "TGCC", dateDebut: "2024-06-01" },
+    { id: 2, nom: "Projet B", client: "SOMAGEC", dateDebut: "2024-07-10" },
   ]);
   const [search, setSearch] = React.useState("");
-  const [form, setForm] = React.useState({ nom: "", tel: "", email: "" });
+  const [form, setForm] = React.useState({
+    nom: "",
+    client: "",
+    dateDebut: "",
+  });
 
-  const filteredSuppliers = suppliers.filter(
-    (s) =>
-      s.nom.toLowerCase().includes(search.toLowerCase()) ||
-      s.email.toLowerCase().includes(search.toLowerCase())
+  const filteredProjects = projects.filter(
+    (p) =>
+      p.nom.toLowerCase().includes(search.toLowerCase()) ||
+      p.client.toLowerCase().includes(search.toLowerCase())
   );
 
   const handleAdd = () => {
-    if (form.nom && form.tel && form.email) {
-      setSuppliers([
-        ...suppliers,
+    if (form.nom && form.client && form.dateDebut) {
+      setProjects([
+        ...projects,
         {
-          id: suppliers.length + 1,
+          id: projects.length + 1,
           nom: form.nom,
-          tel: form.tel,
-          email: form.email,
+          client: form.client,
+          dateDebut: form.dateDebut,
         },
       ]);
-      setForm({ nom: "", tel: "", email: "" });
+      setForm({ nom: "", client: "", dateDebut: "" });
     }
   };
 
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h5" mb={2}>
-        Gestion des Fournisseurs
+        Gestion des Projets
       </Typography>
       <Paper sx={{ p: 2, mb: 3 }}>
         <Typography variant="subtitle1" mb={1}>
-          Ajouter Fournisseur
+          Ajouter Projet
         </Typography>
         <Box sx={{ display: "flex", gap: 2 }}>
           <TextField
@@ -57,14 +61,16 @@ function Suppliers() {
             onChange={(e) => setForm({ ...form, nom: e.target.value })}
           />
           <TextField
-            label="Téléphone"
-            value={form.tel}
-            onChange={(e) => setForm({ ...form, tel: e.target.value })}
+            label="Client"
+            value={form.client}
+            onChange={(e) => setForm({ ...form, client: e.target.value })}
           />
           <TextField
-            label="Email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            label="Date Début"
+            type="date"
+            InputLabelProps={{ shrink: true }}
+            value={form.dateDebut}
+            onChange={(e) => setForm({ ...form, dateDebut: e.target.value })}
           />
           <Button variant="contained" onClick={handleAdd}>
             Ajouter
@@ -82,24 +88,24 @@ function Suppliers() {
           <TableHead>
             <TableRow>
               <TableCell>Nom</TableCell>
-              <TableCell>Téléphone</TableCell>
-              <TableCell>Email</TableCell>
+              <TableCell>Client</TableCell>
+              <TableCell>Date Début</TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {filteredSuppliers.map((s) => (
-              <TableRow key={s.id}>
-                <TableCell>{s.nom}</TableCell>
-                <TableCell>{s.tel}</TableCell>
-                <TableCell>{s.email}</TableCell>
+            {filteredProjects.map((p) => (
+              <TableRow key={p.id}>
+                <TableCell>{p.nom}</TableCell>
+                <TableCell>{p.client}</TableCell>
+                <TableCell>{p.dateDebut}</TableCell>
                 <TableCell>
                   <Button
                     variant="outlined"
                     color="error"
                     size="small"
                     onClick={() => {
-                      setSuppliers(suppliers.filter((sup) => sup.id !== s.id));
+                      setProjects(projects.filter((proj) => proj.id !== p.id));
                     }}
                   >
                     Supprimer
@@ -114,4 +120,4 @@ function Suppliers() {
   );
 }
 
-export default Suppliers;
+export default Project;
