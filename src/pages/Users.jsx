@@ -11,8 +11,10 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
-function Users() {
+function Users({ darkMode }) {
+  const { t } = useTranslation();
   const [users, setUsers] = React.useState([
     { id: 1, nom: "Adam", email: "adam@gmail.com", role: "Admin" },
     { id: 2, nom: "Sara", email: "sara@gmail.com", role: "User" },
@@ -44,11 +46,11 @@ function Users() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h5" mb={2}>
+      <Typography variant="h5" mb={2} sx={{ color: "#23232a" }}>
         Gestion des Utilisateurs
       </Typography>
       <Paper sx={{ p: 2, mb: 3 }}>
-        <Typography variant="subtitle1" mb={1}>
+        <Typography variant="subtitle1" mb={1} >
           Ajouter Utilisateur
         </Typography>
         <Box sx={{ display: "flex", gap: 2 }}>
@@ -73,10 +75,16 @@ function Users() {
         </Box>
       </Paper>
       <TextField
-        label="Recherche"
+        label={t("users.search")}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         sx={{ mb: 2 }}
+        InputProps={{
+          style: {
+            backgroundColor: darkMode ? "#23232a" : "#fff",
+            color: darkMode ? "#f3f4f6" : "#23232a",
+          },
+        }}
       />
       <Paper>
         <Table>

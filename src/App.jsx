@@ -53,10 +53,14 @@ function App() {
             <Route path="Login" element={<Login />} />
             <Route path="/" element={<Dashboard />} />
             <Route path="/Dashboard" element={<Dashboard />} />
-            <Route path="/products" element={<Product />} />
-            <Route path="/suppliers" element={<Suppliers />} />
-            <Route path="/projects" element={<Project />} /> {/* S7i7 l-path */}
-            <Route path="/users" element={<Users />} />
+            <Route path="/products" element={<Product darkMode={darkMode} />} />
+            <Route
+              path="/suppliers"
+              element={<Suppliers darkMode={darkMode} />}
+            />
+            <Route path="/projects" element={<Project darkMode={darkMode} />} />{" "}
+            {/* S7i7 l-path */}
+            <Route path="/users" element={<Users darkMode={darkMode} />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/profile" element={<Profile />} />
             <Route

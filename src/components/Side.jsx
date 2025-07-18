@@ -47,9 +47,13 @@ function Side() {
     <div className="sidebar">
       <div>
         {/* Logo déjà là */}
-        <div className="tgcc-logo-custom">
+        <div
+          className="tgcc-logo-custom"
+          style={{ cursor: "pointer" }}
+          onClick={() => window.location.reload()}
+        >
           <span className="t-letter">T</span>
-          <span className="gcc-text">GCC Stock</span>
+          <span className="gcc-text">GCC</span>
         </div>
 
         {/* Menu principal */}

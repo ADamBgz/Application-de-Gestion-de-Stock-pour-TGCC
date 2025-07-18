@@ -55,6 +55,7 @@ import { useTranslation } from "react-i18next";
 // Composant de carte de statistique
 const StatCard = ({ icon, title, value, change }) => {
   const theme = useTheme();
+  const { t } = useTranslation(); // Ajout
   const isPositive = change >= 0;
 
   return (
@@ -79,7 +80,7 @@ const StatCard = ({ icon, title, value, change }) => {
       <Box className={`stat-change ${isPositive ? "positive" : "negative"}`}>
         <TrendingIcon fontSize="small" />
         <Typography variant="body2">
-          {change}% {isPositive ? "↑" : "↓"} vs mois dernier
+          {change}% {isPositive ? "↑" : "↓"} {t("vs Last-Month")}
         </Typography>
       </Box>
     </Paper>
@@ -164,7 +165,7 @@ function Dashboard() {
           <Paper elevation={3} className="chart-container">
             <Box className="chart-header">
               <Typography variant="h6">
-                Mouvements de stock ({period} jours)
+                {t("stock Movements")} ({period} {t("days")})
               </Typography>
               <StatsIcon className="chart-icon" />
               <Select
@@ -173,15 +174,15 @@ function Dashboard() {
                 size="small"
                 sx={{ ml: 2 }}
               >
-                <MenuItem value={7}>7 jours</MenuItem>
-                <MenuItem value={30}>30 jours</MenuItem>
-                <MenuItem value={90}>90 jours</MenuItem>
+                <MenuItem value={7}>{t("days7")}</MenuItem>
+                <MenuItem value={30}>{t("days30")}</MenuItem>
+                <MenuItem value={90}>{t("days90")}</MenuItem>
               </Select>
             </Box>
             <Box className="chart-placeholder">
               <StockChart period={period} />
               <Typography variant="body1" className="chart-message">
-                Graphique des entrées/sorties de stock
+                {t("stockChartMessage")}
               </Typography>
             </Box>
           </Paper>
@@ -191,7 +192,7 @@ function Dashboard() {
         <Grid item xs={12} md={4}>
           <Paper elevation={3} className="alerts-container">
             <Box className="alerts-header">
-              <Typography variant="h6">{t("Alertes Stock Faible")}</Typography>
+              <Typography variant="h6">{t("low Stock Alerts")}</Typography>
               <AlertIcon className="alerts-icon" />
             </Box>
             <Box className="alerts-list">
@@ -205,7 +206,7 @@ function Dashboard() {
 
       {/* Dernières Activités */}
       <Paper elevation={3} className="activity-container">
-        <Typography variant="h6">{t("Dernières Activités")}</Typography>
+        <Typography variant="h6">{t("recent Activities")}</Typography>
         <Box>
           {activitiesData.map((activity, index) => (
             <Box key={index} className="activity-item">

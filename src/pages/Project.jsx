@@ -11,8 +11,10 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
+import { useTranslation } from "react-i18next"; // Ajout
 
-function Project() {
+function Project({ darkMode }) {
+  const { t } = useTranslation(); // Ajout
   const [projects, setProjects] = React.useState([
     { id: 1, nom: "Projet A", client: "TGCC", dateDebut: "2024-06-01" },
     { id: 2, nom: "Projet B", client: "SOMAGEC", dateDebut: "2024-07-10" },
@@ -48,49 +50,55 @@ function Project() {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h5" mb={2}>
-        Gestion des Projets
+        {t("projects.title")}
       </Typography>
       <Paper sx={{ p: 2, mb: 3 }}>
         <Typography variant="subtitle1" mb={1}>
-          Ajouter Projet
+          {t("projects.addEdit")}
         </Typography>
         <Box sx={{ display: "flex", gap: 2 }}>
           <TextField
-            label="Nom"
+            label={t("projects.name")}
             value={form.nom}
             onChange={(e) => setForm({ ...form, nom: e.target.value })}
           />
           <TextField
-            label="Client"
+            label={t("projects.client")}
             value={form.client}
             onChange={(e) => setForm({ ...form, client: e.target.value })}
           />
           <TextField
-            label="Date Début"
+            label={t("projects.startDate")}
             type="date"
             InputLabelProps={{ shrink: true }}
             value={form.dateDebut}
             onChange={(e) => setForm({ ...form, dateDebut: e.target.value })}
           />
           <Button variant="contained" onClick={handleAdd}>
-            Ajouter
+            {t("projects.add")}
           </Button>
         </Box>
       </Paper>
       <TextField
-        label="Recherche"
+        label={t("projects.search")}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         sx={{ mb: 2 }}
+        InputProps={{
+          style: {
+            backgroundColor: darkMode ? "#23232a" : "#fff",
+            color: darkMode ? "#f3f4f6" : "#23232a",
+          },
+        }}
       />
       <Paper>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Nom</TableCell>
-              <TableCell>Client</TableCell>
-              <TableCell>Date Début</TableCell>
-              <TableCell>Action</TableCell>
+              <TableCell>{t("projects.name")}</TableCell>
+              <TableCell>{t("projects.client")}</TableCell>
+              <TableCell>{t("projects.startDate")}</TableCell>
+              <TableCell>{t("projects.action")}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -108,7 +116,7 @@ function Project() {
                       setProjects(projects.filter((proj) => proj.id !== p.id));
                     }}
                   >
-                    Supprimer
+                    {t("projects.delete")}
                   </Button>
                 </TableCell>
               </TableRow>

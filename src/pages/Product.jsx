@@ -11,8 +11,10 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
+import { useTranslation } from "react-i18next"; // Ajout
 
-function Product() {
+function Product({ darkMode }) {
+  const { t } = useTranslation(); // Ajout
   const [products, setProducts] = React.useState([
     { id: 1, nom: "Souris sans fil", categorie: "Accessoires", stock: 15 },
     { id: 2, nom: "Clavier mécanique", categorie: "Accessoires", stock: 8 },
@@ -47,48 +49,54 @@ function Product() {
   return (
     <Box sx={{ p: 3 }}>
       <Typography variant="h5" mb={2}>
-        Gestion des Articles
+        {t("products.title")}
       </Typography>
       <Paper sx={{ p: 2, mb: 3 }}>
         <Typography variant="subtitle1" mb={1}>
-          Ajouter / Modifier Article
+          {t("products.addEdit")}
         </Typography>
         <Box sx={{ display: "flex", gap: 2 }}>
           <TextField
-            label="Nom"
+            label={t("products.name")}
             value={form.nom}
             onChange={(e) => setForm({ ...form, nom: e.target.value })}
           />
           <TextField
-            label="Catégorie"
+            label={t("products.category")}
             value={form.categorie}
             onChange={(e) => setForm({ ...form, categorie: e.target.value })}
           />
           <TextField
-            label="Stock"
+            label={t("products.stock")}
             type="number"
             value={form.stock}
             onChange={(e) => setForm({ ...form, stock: e.target.value })}
           />
           <Button variant="contained" onClick={handleAdd}>
-            Ajouter
+            {t("products.add")}
           </Button>
         </Box>
       </Paper>
       <TextField
-        label="Recherche"
+        label={t("products.search")}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         sx={{ mb: 2 }}
+        InputProps={{
+          style: {
+            backgroundColor: darkMode ? "#23232a" : "#fff",
+            color: darkMode ? "#f3f4f6" : "#23232a",
+          },
+        }}
       />
       <Paper>
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell>Nom</TableCell>
-              <TableCell>Catégorie</TableCell>
-              <TableCell>Stock</TableCell>
-              <TableCell>Action</TableCell> {/* Zdt l-action */}
+              <TableCell>{t("products.name")}</TableCell>
+              <TableCell>{t("products.category")}</TableCell>
+              <TableCell>{t("products.stock")}</TableCell>
+              <TableCell>{t("products.action")}</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -106,7 +114,7 @@ function Product() {
                       setProducts(products.filter((prod) => prod.id !== p.id));
                     }}
                   >
-                    Supprimer
+                    {t("products.delete")}
                   </Button>
                 </TableCell>
               </TableRow>

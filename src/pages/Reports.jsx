@@ -25,7 +25,7 @@ function Reports() {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h5" mb={2}>
+      <Typography variant="h5" mb={2} sx={{ color: "#23232a" }}>
         Rapports
       </Typography>
       <Paper>

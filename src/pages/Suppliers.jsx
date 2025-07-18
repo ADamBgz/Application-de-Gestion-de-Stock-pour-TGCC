@@ -11,8 +11,10 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
-function Suppliers() {
+function Suppliers({ darkMode }) {
+  const { t } = useTranslation();
   const [suppliers, setSuppliers] = React.useState([
     { id: 1, nom: "TGCC", tel: "0612345678", email: "contact@tgcc.ma" },
     { id: 2, nom: "SOMAGEC", tel: "0623456789", email: "info@somagec.ma" },
@@ -72,10 +74,16 @@ function Suppliers() {
         </Box>
       </Paper>
       <TextField
-        label="Recherche"
+        label={t("suppliers.search")}
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         sx={{ mb: 2 }}
+        InputProps={{
+          style: {
+            backgroundColor: darkMode ? "#23232a" : "#fff",
+            color: darkMode ? "#f3f4f6" : "#23232a",
+          },
+        }}
       />
       <Paper>
         <Table>
