@@ -36,11 +36,11 @@ function Login() {
         </div>
         <div className="forgot-password">
           {t("Forget password?")}{" "}
-          <button className="link-button">{t("Click here")}</button>
+          <button className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded-full">{t("Click here")}</button>
         </div>
         <div className="submit-container">
-          <button className="submit">{t("Sign Up")}</button>
-          <button className="submit">{t("Login")}</button>
+          <button className="submit bg-gray-300 hover:bg-gray-400 text-gray-800 font font-bold py-2 px-4 rounded-1">{t("Sign Up")}</button>
+          <button className="submit bg-gray-300 hover:bg-gray-400 text-gray-800 font font-bold py-2 px-4 rounded-1">{t("Login")}</button>
         </div>
       </div>
     </>
