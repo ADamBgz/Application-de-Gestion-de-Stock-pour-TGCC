@@ -12,6 +12,7 @@ import Users from "./pages/Users";
 import Reports from "./pages/Reports";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
+import Home from "./pages/Home"; // Ajoute cet import
 import "./App.css";
 import "./i18n";
 
@@ -50,16 +51,15 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="Login" element={<Login />} />
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/Dashboard" element={<Dashboard />} />
+            <Route index element={<Home />} /> {/* Home AVEC sidebar */}
+            <Route path="login" element={<Login />} />
+            <Route path="dashboard" element={<Dashboard />} />
             <Route path="/products" element={<Product darkMode={darkMode} />} />
             <Route
               path="/suppliers"
               element={<Suppliers darkMode={darkMode} />}
             />
-            <Route path="/projects" element={<Project darkMode={darkMode} />} />{" "}
-            {/* S7i7 l-path */}
+            <Route path="/projects" element={<Project darkMode={darkMode} />} />
             <Route path="/users" element={<Users darkMode={darkMode} />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/profile" element={<Profile />} />

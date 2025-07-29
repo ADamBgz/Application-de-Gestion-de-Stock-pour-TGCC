@@ -12,6 +12,7 @@ import { Avatar, Menu, MenuItem, IconButton } from "@mui/material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import SettingsIcon from "@mui/icons-material/Settings";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import HomeIcon from "@mui/icons-material/Home"; // Ajout
 
 function Side() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -58,6 +59,12 @@ function Side() {
 
         {/* Menu principal */}
         <ul className="sidebar-menu">
+          <li>
+            <Link to="/">
+              <HomeIcon className="icon" />
+              <span>Home</span>
+            </Link>
+          </li>
           <li>
             <Link to="/dashboard">
               <DashboardIcon className="icon" />
