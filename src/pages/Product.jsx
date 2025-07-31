@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Typography,
@@ -11,39 +11,52 @@ import {
   TableCell,
   TableBody,
 } from "@mui/material";
-import { useTranslation } from "react-i18next"; // Ajout
+import { useTranslation } from "react-i18next";
+import axios from "axios";
 
 function Product({ darkMode }) {
-  const { t } = useTranslation(); // Ajout
-  const [products, setProducts] = React.useState([
-    { id: 1, nom: "Souris sans fil", categorie: "Accessoires", stock: 15 },
-    { id: 2, nom: "Clavier mécanique", categorie: "Accessoires", stock: 8 },
-    { id: 3, nom: "Câble HDMI 2m", categorie: "Câbles", stock: 3 },
-  ]);
-  const [search, setSearch] = React.useState("");
-  const [form, setForm] = React.useState({ nom: "", categorie: "", stock: "" });
+  const { t } = useTranslation();
 
-  // Filtre
+  const [products, setProducts] = useState([]);
+  const [search, setSearch] = useState("");
+  const [form, setForm] = useState({ nom: "", categorie: "", stock: "" });
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/api/products")
+      .then((res) => setProducts(res.data))
+      .catch((err) => console.error(err));
+  }, []);
+
   const filteredProducts = products.filter(
     (p) =>
       p.nom.toLowerCase().includes(search.toLowerCase()) ||
       p.categorie.toLowerCase().includes(search.toLowerCase())
   );
 
-  // Ajout produit
   const handleAdd = () => {
     if (form.nom && form.categorie && form.stock) {
-      setProducts([
-        ...products,
-        {
-          id: products.length + 1,
+      axios
+        .post("http://localhost:8080/api/products", {
           nom: form.nom,
           categorie: form.categorie,
           stock: Number(form.stock),
-        },
-      ]);
-      setForm({ nom: "", categorie: "", stock: "" });
+        })
+        .then((res) => {
+          setProducts([...products, res.data]);
+          setForm({ nom: "", categorie: "", stock: "" });
+        })
+        .catch((err) => console.error(err));
     }
+  };
+
+  const handleDelete = (id) => {
+    axios
+      .delete(`http://localhost:8080/api/products/${id}`)
+      .then(() => {
+        setProducts(products.filter((prod) => prod.id !== id));
+      })
+      .catch((err) => console.error(err));
   };
 
   return (
@@ -51,6 +64,7 @@ function Product({ darkMode }) {
       <Typography variant="h5" mb={2} sx={{ color: "#23232a" }}>
         {t("products.title")}
       </Typography>
+
       <Paper sx={{ p: 2, mb: 3 }}>
         <Typography variant="subtitle1" mb={1}>
           {t("products.addEdit")}
@@ -77,6 +91,7 @@ function Product({ darkMode }) {
           </Button>
         </Box>
       </Paper>
+
       <TextField
         label={t("products.search")}
         value={search}
@@ -89,6 +104,7 @@ function Product({ darkMode }) {
           },
         }}
       />
+
       <Paper>
         <Table>
           <TableHead>
@@ -110,9 +126,7 @@ function Product({ darkMode }) {
                     variant="outlined"
                     color="error"
                     size="small"
-                    onClick={() => {
-                      setProducts(products.filter((prod) => prod.id !== p.id));
-                    }}
+                    onClick={() => handleDelete(p.id)}
                   >
                     {t("products.delete")}
                   </Button>
